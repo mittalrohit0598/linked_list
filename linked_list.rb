@@ -66,6 +66,25 @@ class LinkedList
     list.gsub('(', '').gsub(')', '').split(' -> ').find_index(value.to_s)
   end
 
+  def insert_at(value, index)
+    node = head
+    (index - 1).times do
+      node = node.next_node
+    end
+    new_node = Node.new(value, node.next_node)
+    node.next_node = new_node
+    self.size += 1
+  end
+
+  def remove_at(index)
+    node = head
+    (index - 1).times do
+      node = node.next_node
+    end
+    node.next_node = node.next_node.next_node
+    self.size -= 1
+  end
+
   def to_s
     node = head
     list = ''
@@ -77,22 +96,3 @@ class LinkedList
     list
   end
 end
-
-list = LinkedList.new
-list.append(5)
-list.append(4)
-list.append(3)
-list.append(2)
-list.prepend(6)
-list.prepend(7)
-list.prepend(8)
-list.prepend(9)
-puts list
-list.pop
-list.pop
-list.pop
-puts list
-puts list.contains?(10)
-puts list.contains?(5)
-puts list.find(8)
-puts list.find(11)
